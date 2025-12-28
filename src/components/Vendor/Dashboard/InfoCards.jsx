@@ -26,7 +26,7 @@ const cardInfo = [
   {
     title: "Revenue",
     icon: CircleDollarSign,
-    count: "12,000",
+    count: "₹12,000",
   },
 ];
 
