@@ -33,7 +33,7 @@ export default function Nav() {
                   asChild
                   className={navigationMenuTriggerStyle()}
                 >
-                  <Link to="/home">Home</Link>
+                  <Link to="/">Home</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 

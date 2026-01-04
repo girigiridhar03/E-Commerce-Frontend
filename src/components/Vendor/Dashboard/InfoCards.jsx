@@ -5,7 +5,6 @@ import {
   ClipboardClock,
   PackageCheck,
 } from "lucide-react";
-import React from "react";
 
 const cardInfo = [
   {
