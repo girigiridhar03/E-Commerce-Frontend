@@ -4,13 +4,16 @@ import axios from "axios";
 export const getProducts = createAsyncThunk(
   "getProducts",
   async (reqBody, { rejectWithValue }) => {
-    const { page, limit, search, key } = reqBody;
+    const { page, limit, search, key, sort } = reqBody;
     let url = `http://localhost:8080/api/product/all-products?page=${page}&limit=${limit}`;
 
     if (search) {
       url += `&search=${search}`;
     }
 
+    if (sort && sort !== "featured") {
+      url += `&sort=${sort}`;
+    }
     try {
       const response = await axios.get(url);
       return { key, data: response?.data?.data };

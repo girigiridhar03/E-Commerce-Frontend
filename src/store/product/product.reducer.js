@@ -7,6 +7,7 @@ const initialState = {
   laptops: [],
   mobiles: [],
   latestProducts: [],
+  allProducts : []
 };
 
 const productReducer = createSlice({

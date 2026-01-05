@@ -1,5 +1,6 @@
 import Home from "@/pages/Home/Home";
 import Main from "@/pages/Main/Main";
+import Products from "@/pages/Product/Products";
 import VendorCreateProduct from "@/pages/Vendor/CreateProduct/VendorCreateProduct";
 import VendorDashboard from "@/pages/Vendor/Dashboard/VendorDashboard";
 import VendorDeliveryPartner from "@/pages/Vendor/DeliveryPartner/VendorDeliveryPartner";
@@ -13,6 +14,7 @@ const AppRoutes = () => {
     <Routes>
       <Route element={<Main />}>
         <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
       </Route>
 
       <Route element={<VendorMain />}>
@@ -23,10 +25,7 @@ const AppRoutes = () => {
           element={<VendorDeliveryPartner />}
         />
         <Route path="/vendor/products" element={<VendorProducts />} />
-        <Route
-          path="/vendor/new-product"
-          element={<VendorCreateProduct />}
-        />
+        <Route path="/vendor/new-product" element={<VendorCreateProduct />} />
       </Route>
     </Routes>
   );

@@ -32,7 +32,7 @@ const ProductCards = ({ img, title, desc, price, originalPrice, discount }) => {
           <div className="text-lg font-bold">₹{price?.toLocaleString()}</div>
 
           {originalPrice && (
-            <div className="line-through text-sm text-red-600">
+            <div className="line-through text-smu text-red-600">
               ₹{originalPrice.toLocaleString()}
             </div>
           )}
