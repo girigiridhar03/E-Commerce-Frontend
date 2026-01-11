@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, User, Package, LogOut } from "lucide-react";
+import { ShoppingCart, User, Package, LogOut, CircleUser } from "lucide-react";
 
 import {
   NavigationMenu,
@@ -61,6 +61,12 @@ export default function Nav() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/orders" className="flex items-center gap-2">
+                    <CircleUser className="h-4 w-4" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/orders" className="flex items-center gap-2">
                     <Package className="h-4 w-4" />

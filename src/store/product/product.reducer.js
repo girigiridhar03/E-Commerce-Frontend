@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProducts } from "./product.service";
+import { getProducts, relatedProducts, singleProduct } from "./product.service";
 
 const initialState = {
   loading: false,
@@ -7,7 +7,11 @@ const initialState = {
   laptops: [],
   mobiles: [],
   latestProducts: [],
-  allProducts : []
+  allProducts: [],
+  singleProductDetails: {},
+  sLoading: false,
+  relatedProductsArr: [],
+  rLoading: false,
 };
 
 const productReducer = createSlice({
@@ -25,7 +29,29 @@ const productReducer = createSlice({
       })
       .addCase(getProducts.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = payload;  
+        state.error = payload;
+      })
+      .addCase(singleProduct.pending, (state) => {
+        state.sLoading = true;
+      })
+      .addCase(singleProduct.fulfilled, (state, { payload }) => {
+        state.sLoading = false;
+        state.singleProductDetails = payload;
+      })
+      .addCase(singleProduct.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(relatedProducts.pending, (state) => {
+        state.rLoading = true;
+      })
+      .addCase(relatedProducts.fulfilled, (state, { payload }) => {
+        state.rLoading = false;
+        state.relatedProductsArr = payload;
+      })
+      .addCase(relatedProducts.rejected, (state, { payload }) => {
+        state.rLoading = false;
+        state.error = payload;
       }),
 });
 

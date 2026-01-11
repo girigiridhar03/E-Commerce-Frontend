@@ -29,8 +29,8 @@ const CardsSections = ({ title, searchKey }) => {
   return (
     <div className="flex flex-col gap-2.5 mb-10">
       <header className="flex items-center justify-between px-2">
-         <h3 className="text-xl font-bold">{title}</h3>
-         <Button size="sm">View All</Button>
+        <h3 className="text-xl font-bold">{title}</h3>
+        <Button size="sm">View All</Button>
       </header>
       <div
         className="  grid 
@@ -49,6 +49,9 @@ const CardsSections = ({ title, searchKey }) => {
             price={item?.currentPrice}
             originalPrice={item?.originalPrice}
             discount={item?.discountPercent}
+            slug={item?.slug}
+            pId={item?._id}
+            vId={item?.variantId}
           />
         ))}
       </div>

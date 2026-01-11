@@ -9,20 +9,36 @@ import {
 import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 import { Badge } from "../ui/badge";
+import { Link } from "react-router-dom";
 
-const ProductCards = ({ img, title, desc, price, originalPrice, discount }) => {
+const ProductCards = ({
+  img,
+  title,
+  desc,
+  price,
+  originalPrice,
+  discount,
+  slug,
+  pId,
+  vId,
+}) => {
   return (
     <Card className="bg-background overflow-hidden transition hover:shadow-md flex flex-col">
       {/* Image */}
-      <div className="h-48 w-full relative">
-        {discount && (
-          <Badge variant="destructive" className="absolute top-2 right-2">
-            -{discount}%
-          </Badge>
-        )}
+      <Link
+        className="h-48 w-full relative"
+        to={`/products/${slug}/${pId}/${vId}`}
+      >
+        <div className="h-full w-full">
+          {discount && (
+            <Badge variant="destructive" className="absolute top-2 right-2">
+              -{discount}%
+            </Badge>
+          )}
 
-        <img src={img} alt={title} className="object-contain h-full w-full" />
-      </div>
+          <img src={img} alt={title} className="object-contain h-full w-full" />
+        </div>
+      </Link>
 
       {/* Content */}
       <CardHeader className="pb-2">
@@ -39,9 +55,11 @@ const ProductCards = ({ img, title, desc, price, originalPrice, discount }) => {
         </div>
       </CardHeader>
 
-      <CardContent className="flex-1">
-        <p className="text-sm text-muted-foreground line-clamp-2">{desc}</p>
-      </CardContent>
+      <Link className="flex-1" to={`/products/${slug}/${pId}/${vId}`}>
+        <CardContent>
+          <p className="text-sm text-muted-foreground line-clamp-2">{desc}</p>
+        </CardContent>
+      </Link>
 
       {/* Footer */}
       <CardFooter className="justify-end">

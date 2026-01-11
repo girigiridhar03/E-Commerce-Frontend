@@ -1,5 +1,7 @@
+import Cart from "@/pages/Cart/Cart";
 import Home from "@/pages/Home/Home";
 import Main from "@/pages/Main/Main";
+import ProductDetails from "@/pages/Product/ProductDetails";
 import Products from "@/pages/Product/Products";
 import VendorCreateProduct from "@/pages/Vendor/CreateProduct/VendorCreateProduct";
 import VendorDashboard from "@/pages/Vendor/Dashboard/VendorDashboard";
@@ -15,6 +17,11 @@ const AppRoutes = () => {
       <Route element={<Main />}>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route
+          path="/products/:slug/:productId/:variantId"
+          element={<ProductDetails />}
+        />
+        <Route path="/cart" element={<Cart />} />
       </Route>
 
       <Route element={<VendorMain />}>
