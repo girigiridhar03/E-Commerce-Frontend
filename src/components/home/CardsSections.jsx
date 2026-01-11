@@ -3,6 +3,7 @@ import ProductCards from "../product/ProductCards";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "@/store/product/product.service";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 const getVisibleCount = () => {
   if (window.innerWidth >= 1280) return 4;
   if (window.innerWidth >= 1024) return 3;
@@ -30,7 +31,9 @@ const CardsSections = ({ title, searchKey }) => {
     <div className="flex flex-col gap-2.5 mb-10">
       <header className="flex items-center justify-between px-2">
         <h3 className="text-xl font-bold">{title}</h3>
-        <Button size="sm">View All</Button>
+        <Link to={`/products?sValue=${searchKey}`}>
+          <Button size="sm">View All</Button>
+        </Link>
       </header>
       <div
         className="  grid 

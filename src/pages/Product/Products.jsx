@@ -5,8 +5,14 @@ import { getProducts } from "@/store/product/product.service";
 import { Filter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
+
+  const serachValue = searchParams.get("sValue");
+  console.log(serachValue);
+
   const SORT_OPTIONS = [
     {
       label: "Featured",
@@ -24,12 +30,25 @@ const Products = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [search, setSearch] = useState(null);
   const { allProducts } = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts({ page, limit, key: "allProducts", sort: sortBy }));
-  }, [sortBy, page, limit]);
+    setSearch(serachValue);
+  }, [serachValue]);
+
+  useEffect(() => {
+    dispatch(
+      getProducts({
+        page,
+        limit,
+        key: "allProducts",
+        sort: sortBy,
+        search,
+      })
+    );
+  }, [sortBy, page, limit, search]);
 
   return (
     <div>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { CarouselCom } from "./Carousel";
-import { Button } from "../ui/button";
 import ProDetails from "./ProDetails";
 
 const ProductDetailsContainer = () => {
@@ -20,7 +19,7 @@ const ProductDetailsContainer = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch w-full select-none gap-3">
+    <div className="flex flex-col md:flex-row items-stretch w-full select-none gap-3 ">
       {/* Images Container */}
       <div className="w-full md:w-1/2 flex flex-col items-center gap-2.5 p-1.5">
         <div className="w-full aspect-square flex items-center justify-center">
@@ -41,8 +40,6 @@ const ProductDetailsContainer = () => {
 
       {/* Details Container */}
       <ProDetails singleProductDetails={singleProductDetails} />
-
-      {/* Tabs */}
     </div>
   );
 };
