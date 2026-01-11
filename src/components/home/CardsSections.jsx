@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "@/store/product/product.service";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import LoadingCards from "../product/LoadingCards";
 const getVisibleCount = () => {
   if (window.innerWidth >= 1280) return 4;
   if (window.innerWidth >= 1024) return 3;
@@ -12,6 +13,7 @@ const getVisibleCount = () => {
 const CardsSections = ({ title, searchKey }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product?.[searchKey]);
+  const { loading } = useSelector((state) => state.product);
   const [limit, setLimit] = useState(getVisibleCount());
 
   useEffect(() => {
@@ -43,20 +45,26 @@ const CardsSections = ({ title, searchKey }) => {
   xl:grid-cols-4 
   gap-4"
       >
-        {data?.products?.slice(0, limit)?.map((item) => (
-          <ProductCards
-            key={item?.variantId}
-            title={item.productName}
-            img={item?.images[0]?.url}
-            desc={item?.description}
-            price={item?.currentPrice}
-            originalPrice={item?.originalPrice}
-            discount={item?.discountPercent}
-            slug={item?.slug}
-            pId={item?._id}
-            vId={item?.variantId}
-          />
-        ))}
+        {loading ? (
+          <LoadingCards num={4} />
+        ) : (
+          data?.products
+            ?.slice(0, limit)
+            ?.map((item) => (
+              <ProductCards
+                key={item?.variantId}
+                title={item.productName}
+                img={item?.images[0]?.url}
+                desc={item?.description}
+                price={item?.currentPrice}
+                originalPrice={item?.originalPrice}
+                discount={item?.discountPercent}
+                slug={item?.slug}
+                pId={item?._id}
+                vId={item?.variantId}
+              />
+            ))
+        )}
       </div>
     </div>
   );
