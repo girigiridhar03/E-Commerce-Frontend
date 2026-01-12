@@ -10,8 +10,6 @@ import { Link, useLocation } from "react-router-dom";
 export function NavMain({ items }) {
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Navigations</SidebarGroupLabel>

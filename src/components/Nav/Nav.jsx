@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ShoppingCart, User, Package, LogOut, CircleUser } from "lucide-react";
 
 import {
@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function Nav() {
+  const { pathname } = useLocation();
+
   return (
     <header className="sticky top-0 z-50 border-b bg-white">
       <div className="mx-auto max-w-7xl px-4">
@@ -31,7 +33,9 @@ export default function Nav() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   asChild
-                  className={navigationMenuTriggerStyle()}
+                  className={`${navigationMenuTriggerStyle()} ${
+                    pathname === "/Home" && "bg-accent"
+                  }`}
                 >
                   <Link to="/">Home</Link>
                 </NavigationMenuLink>
@@ -40,7 +44,9 @@ export default function Nav() {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   asChild
-                  className={navigationMenuTriggerStyle()}
+                  className={`${navigationMenuTriggerStyle()} ${
+                    pathname === "/products" && "bg-accent"
+                  }`}
                 >
                   <Link to="/products">Products</Link>
                 </NavigationMenuLink>
