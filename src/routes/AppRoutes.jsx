@@ -1,3 +1,4 @@
+import Auth from "@/pages/Auth/Auth";
 import Cart from "@/pages/Cart/Cart";
 import Home from "@/pages/Home/Home";
 import Main from "@/pages/Main/Main";
@@ -23,6 +24,9 @@ const AppRoutes = () => {
         />
         <Route path="/cart" element={<Cart />} />
       </Route>
+
+      <Route path="/signin" element={<Auth />} />
+      <Route path="/signup" element={<Auth />} />
 
       <Route element={<VendorMain />}>
         <Route path="/vendor/dashboard" element={<VendorDashboard />} />
