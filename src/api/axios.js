@@ -1,5 +1,20 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+let isUnauthorizedHandled = false;
 
+const handleUnauthorized = () => {
+  if (isUnauthorizedHandled) return;
+
+  isUnauthorizedHandled = true;
+
+  toast.error("Session expired. Please sign in again.");
+
+  sessionStorage.removeItem("token");
+
+  setTimeout(() => {
+    window.location.replace("/signin");
+  }, 1500);
+};
 const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 15000,
@@ -29,8 +44,7 @@ api.interceptors.response.use(
       });
     }
     if (error.response.status === 401) {
-      sessionStorage.removeItem("token");
-      window.location.replace("/signin");
+      handleUnauthorized();
     }
 
     return Promise.reject(error);

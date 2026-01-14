@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,9 +7,11 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { ShoppingCart } from "lucide-react";
+import { Loader2, ShoppingCart } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "@/store/cart/cart.service";
 
 const ProductCards = ({
   img,
@@ -22,6 +24,22 @@ const ProductCards = ({
   pId,
   vId,
 }) => {
+  const dispatch = useDispatch();
+  const { cartLoadingByVariant } = useSelector((state) => state.cart);
+  const isLoading = cartLoadingByVariant[vId];
+
+  const handleCart = () => {
+    if (isLoading) return;
+
+    dispatch(
+      addToCart({
+        productId: pId,
+        variantId: vId,
+        quantity: 1,
+        productName: title,
+      })
+    );
+  };
   return (
     <Card className="bg-background overflow-hidden transition hover:shadow-md flex flex-col">
       {/* Image */}
@@ -63,9 +81,22 @@ const ProductCards = ({
 
       {/* Footer */}
       <CardFooter className="justify-end">
-        <Button className="flex gap-2 hover:scale-[1.02] transition">
-          <ShoppingCart size={18} />
-          Add To Cart
+        <Button
+          className="flex gap-2 hover:scale-[1.02] transition"
+          onClick={() => handleCart(pId, vId, title)}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="animate-spin" />
+              Adding...
+            </>
+          ) : (
+            <>
+              <ShoppingCart />
+              Add To Cart
+            </>
+          )}
         </Button>
       </CardFooter>
     </Card>

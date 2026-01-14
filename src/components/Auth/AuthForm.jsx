@@ -13,6 +13,7 @@ import { CircleUserRound } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authSignin } from "@/store/auth/auth.service";
+import { toast } from "react-toastify";
 
 const AuthForm = () => {
   const [preview, setPreview] = useState(null);
@@ -51,6 +52,7 @@ const AuthForm = () => {
       ).unwrap();
 
       if (result?.success) {
+        toast.success("Welcome back!");
         sessionStorage.setItem("token", result?.data);
         navigate("/");
       }
