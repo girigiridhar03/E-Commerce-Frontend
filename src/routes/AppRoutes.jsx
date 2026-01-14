@@ -11,11 +11,18 @@ import VendorOrders from "@/pages/Vendor/Orders/VendorOrders";
 import VendorProducts from "@/pages/Vendor/Products/VendorProducts";
 import VendorMain from "@/pages/Vendor/Vendor.main";
 import { Route, Routes } from "react-router-dom";
+import RoleRoute from "./RoleRoute";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<Main />}>
+      <Route
+        element={
+          <RoleRoute allowedRoles={["user", "delivery-man", "admin", "vendor"]}>
+            <Main />
+          </RoleRoute>
+        }
+      >
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route

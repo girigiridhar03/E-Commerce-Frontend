@@ -10,10 +10,14 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CircleUserRound } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authSignin } from "@/store/auth/auth.service";
 
 const AuthForm = () => {
   const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -35,10 +39,22 @@ const AuthForm = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(form);
+    if (pathname === "/signin") {
+      const result = await dispatch(
+        authSignin({
+          email: form.email,
+          password: form.password,
+        })
+      ).unwrap();
+
+      if (result?.success) {
+        sessionStorage.setItem("token", result?.data);
+        navigate("/");
+      }
+    }
   };
 
   return (
