@@ -11,7 +11,7 @@ import { Loader2, ShoppingCart } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "@/store/cart/cart.service";
+import { addToCart, cartCount } from "@/store/cart/cart.service";
 
 const ProductCards = ({
   img,
@@ -28,17 +28,21 @@ const ProductCards = ({
   const { cartLoadingByVariant } = useSelector((state) => state.cart);
   const isLoading = cartLoadingByVariant[vId];
 
-  const handleCart = () => {
+  const handleCart = async () => {
     if (isLoading) return;
 
-    dispatch(
+    const result = await dispatch(
       addToCart({
         productId: pId,
         variantId: vId,
         quantity: 1,
         productName: title,
       })
-    );
+    ).unwrap();
+    console.log(result);
+    if (result.success) {
+      dispatch(cartCount());
+    }
   };
   return (
     <Card className="bg-background overflow-hidden transition hover:shadow-md flex flex-col">

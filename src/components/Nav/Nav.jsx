@@ -16,9 +16,11 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useSelector } from "react-redux";
 
 export default function Nav() {
   const { pathname } = useLocation();
+  const { cartCountNum } = useSelector((state) => state.cart);
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white">
@@ -34,7 +36,7 @@ export default function Nav() {
                 <NavigationMenuLink
                   asChild
                   className={`${navigationMenuTriggerStyle()} ${
-                    pathname === "/Home" && "bg-accent"
+                    pathname === "/" && "bg-accent"
                   }`}
                 >
                   <Link to="/">Home</Link>
@@ -56,7 +58,10 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <Link to="/cart" className="rounded-md p-2 hover:bg-muted">
-              <ShoppingCart className="h-5 w-5" />
+              <div className="relative">
+                <ShoppingCart className="h-5 w-5 " />
+                <div className=" absolute w-4 h-4 rounded-full -top-2 -right-2 bg-red-600 text-xs flex items-center justify-center text-white">{cartCountNum}</div>
+              </div>
             </Link>
 
             <DropdownMenu>

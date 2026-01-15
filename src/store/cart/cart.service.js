@@ -17,6 +17,7 @@ export const addToCart = createAsyncThunk(
       if (response?.data?.success) {
         toast.success(`Added to Cart: ${productName}`);
       }
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error?.message);
     }
@@ -29,6 +30,18 @@ export const getCartItems = createAsyncThunk(
     try {
       const response = await api.get("/cart/cart-items");
 
+      return response?.data?.data;
+    } catch (error) {
+      return rejectWithValue(error?.message);
+    }
+  }
+);
+
+export const cartCount = createAsyncThunk(
+  "cartcount",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.get("/cart/cart-count");
       return response?.data?.data;
     } catch (error) {
       return rejectWithValue(error?.message);

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToCart, getCartItems } from "./cart.service";
+import { addToCart, cartCount, getCartItems } from "./cart.service";
 
 const initialState = {
   cartLoadingByVariant: {},
   error: null,
   cartLoading: false,
   cartDetails: {},
+  cartCountNum: 0,
 };
 
 const cartReducer = createSlice({
@@ -35,6 +36,16 @@ const cartReducer = createSlice({
       })
       .addCase(getCartItems.rejected, (state, { payload }) => {
         state.cartLoading = false;
+        state.error = payload;
+      })
+      .addCase(cartCount.pending, (state) => {
+        state.cartCountNum = 0;
+      })
+      .addCase(cartCount.fulfilled, (state, { payload }) => {
+        state.cartCountNum = payload;
+      })
+      .addCase(cartCount.rejected, (state, { payload }) => {
+        state.cartCountNum = 0;
         state.error = payload;
       }),
 });
