@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToCart, cartCount, getCartItems } from "./cart.service";
+import {
+  addToCart,
+  cartCount,
+  decreaseCartItemCount,
+  deleteProductFromCart,
+  getCartItems,
+} from "./cart.service";
 
 const initialState = {
   cartLoadingByVariant: {},
@@ -7,6 +13,8 @@ const initialState = {
   cartLoading: false,
   cartDetails: {},
   cartCountNum: 0,
+  cartCountLoading: false,
+  deleteVarLoading: {},
 };
 
 const cartReducer = createSlice({
@@ -47,6 +55,29 @@ const cartReducer = createSlice({
       .addCase(cartCount.rejected, (state, { payload }) => {
         state.cartCountNum = 0;
         state.error = payload;
+      })
+      .addCase(decreaseCartItemCount.pending, (state) => {
+        state.cartCountLoading = true;
+      })
+      .addCase(decreaseCartItemCount.fulfilled, (state) => {
+        state.cartCountLoading = false;
+      })
+      .addCase(decreaseCartItemCount.rejected, (state, { payload }) => {
+        state.cartCountLoading = false;
+        state.error = payload;
+      })
+      .addCase(deleteProductFromCart.pending, (state, action) => {
+        const { vId } = action.meta.arg;
+        state.deleteVarLoading[vId] = true;
+      })
+      .addCase(deleteProductFromCart.fulfilled, (state, action) => {
+        const { vId } = action.meta.arg;
+        delete state.deleteVarLoading[vId];
+      })
+      .addCase(deleteProductFromCart.rejected, (state, action) => {
+        const { vId } = action.meta.arg;
+        delete state.deleteVarLoading[vId];
+        state.error = action.payload;
       }),
 });
 

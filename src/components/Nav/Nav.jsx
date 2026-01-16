@@ -60,7 +60,7 @@ export default function Nav() {
             <Link to="/cart" className="rounded-md p-2 hover:bg-muted">
               <div className="relative">
                 <ShoppingCart className="h-5 w-5 " />
-                <div className=" absolute w-4 h-4 rounded-full -top-2 -right-2 bg-red-600 text-xs flex items-center justify-center text-white">{cartCountNum}</div>
+                <div className=" absolute w-4 h-4 rounded-full -top-2 -right-2 bg-red-600 text-xs flex items-center justify-center text-white">{cartCountNum ?? 0}</div>
               </div>
             </Link>
 

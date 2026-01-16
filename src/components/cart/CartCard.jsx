@@ -2,8 +2,53 @@ import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import QtyInput from "./QtyInput";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  cartCount,
+  decreaseCartItemCount,
+  deleteProductFromCart,
+  getCartItems,
+} from "@/store/cart/cart.service";
+import { Loader2 } from "lucide-react";
 
 const CartCard = ({ productDetails, selectedVariant, qty }) => {
+  const dispatch = useDispatch();
+  const { deleteVarLoading } = useSelector((state) => state.cart);
+
+  const isLoading = deleteVarLoading[selectedVariant?._id];
+
+  const handleIncrease = (currentValue) => {
+    dispatch(
+      addToCart({
+        productId: productDetails?._id,
+        variantId: selectedVariant?._id,
+        quantity: currentValue,
+      })
+    );
+  };
+
+  const handleDecrease = () => {
+    dispatch(
+      decreaseCartItemCount({
+        pId: productDetails?._id,
+        vId: selectedVariant?._id,
+      })
+    );
+  };
+
+  const handleRemove = async () => {
+    await dispatch(
+      deleteProductFromCart({
+        pId: productDetails?._id,
+        vId: selectedVariant?._id,
+      })
+    );
+
+    await dispatch(getCartItems());
+    await dispatch(cartCount());
+  };
+
   return (
     <Card className="flex flex-row gap-4 p-4 items-start">
       {/* IMAGE */}
@@ -39,10 +84,26 @@ const CartCard = ({ productDetails, selectedVariant, qty }) => {
         </p>
 
         <div className="flex items-center gap-3 mt-2">
-          <QtyInput qty={qty} />
+          <QtyInput
+            qty={qty}
+            onIncrease={handleIncrease}
+            onDecrease={handleDecrease}
+          />
 
-          <Button variant="destructive" size="sm">
-            Remove
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={handleRemove}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="animate-spin" />
+                Removing...
+              </>
+            ) : (
+              <>Remove</>
+            )}
           </Button>
         </div>
       </div>

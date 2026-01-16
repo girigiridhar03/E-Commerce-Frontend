@@ -5,15 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
   const { cartLoading, cartDetails } = useSelector((state) => state.cart);
-  const { summary, cartItems } = cartDetails;
+  const { summary, cartItems } = cartDetails || {};
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartItems());
   }, [dispatch]);
-
-  console.log(summary, cartItems);
 
   return (
     <div className="w-full mx-auto px-4 py-2">

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -39,7 +38,6 @@ const ProductCards = ({
         productName: title,
       })
     ).unwrap();
-    console.log(result);
     if (result.success) {
       dispatch(cartCount());
     }

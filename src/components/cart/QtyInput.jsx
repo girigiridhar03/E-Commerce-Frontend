@@ -11,10 +11,8 @@ const QtyInput = ({ qty, onIncrease, onDecrease }) => {
     if (newValue < 1) return;
 
     if (newValue > prevValue.current) {
-      console.log("⬆️ User clicked UP arrow or typed higher");
       onIncrease?.(newValue - prevValue.current);
     } else if (newValue < prevValue.current) {
-      console.log("⬇️ User clicked DOWN arrow or typed lower");
       onDecrease?.(prevValue.current - newValue);
     }
 
@@ -22,7 +20,15 @@ const QtyInput = ({ qty, onIncrease, onDecrease }) => {
     setValue(newValue);
   };
 
-  return <Input type="number" className="border-primary w-20" min={1} value={value} onChange={handleChange} />;
+  return (
+    <Input
+      type="number"
+      className="border-primary w-20"
+      min={1}
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };
 
 export default QtyInput;
