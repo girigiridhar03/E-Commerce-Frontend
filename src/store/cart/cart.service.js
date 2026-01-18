@@ -21,7 +21,7 @@ export const addToCart = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
 
 export const getCartItems = createAsyncThunk(
@@ -34,7 +34,7 @@ export const getCartItems = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
 
 export const cartCount = createAsyncThunk(
@@ -46,7 +46,7 @@ export const cartCount = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
 
 export const decreaseCartItemCount = createAsyncThunk(
@@ -55,13 +55,11 @@ export const decreaseCartItemCount = createAsyncThunk(
     try {
       const response = await api.delete(`/cart/deleteItem/${pId}/${vId}`);
 
-      console.log(response?.data);
-
       return response?.data?.data;
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
 
 export const deleteProductFromCart = createAsyncThunk(
@@ -70,11 +68,9 @@ export const deleteProductFromCart = createAsyncThunk(
     try {
       const response = await api.delete(`/cart/delete-product/${pId}/${vId}`);
 
-      console.log(response?.data);
-
       return response?.data;
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
