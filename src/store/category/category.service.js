@@ -12,3 +12,15 @@ export const getCategoryNames = createAsyncThunk(
     }
   },
 );
+
+export const getSelectedFields = createAsyncThunk(
+  "namesAndFields",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/category/${id}`);
+      return response?.data?.data?.fields;
+    } catch (error) {
+      return rejectWithValue(error?.message);
+    }
+  },
+);

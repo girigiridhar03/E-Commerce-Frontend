@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCategoryNames } from "./category.service";
+import {
+  getCategoryNames,
+  getSelectedFields,
+} from "./category.service";
 
 const initialState = {
-  loading: true,
+  loading: false,
   error: null,
   categoryNames: [],
+  selectedFields: [],
 };
 
 const categoryReducer = createSlice({
@@ -21,6 +25,17 @@ const categoryReducer = createSlice({
         state.categoryNames = payload;
       })
       .addCase(getCategoryNames.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      .addCase(getSelectedFields.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getSelectedFields.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.selectedFields = payload;
+      })
+      .addCase(getSelectedFields.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       }),
