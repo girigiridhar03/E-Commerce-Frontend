@@ -11,10 +11,11 @@ const initialState = {
   cartLoadingByVariant: {},
   error: null,
   cartLoading: false,
-  cartDetails: {},
   cartCountNum: 0,
   cartCountLoading: false,
   deleteVarLoading: {},
+  cartItems: [],
+  summary: {},
 };
 
 const cartReducer = createSlice({
@@ -29,6 +30,7 @@ const cartReducer = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         const { variantId } = action.meta.arg;
+        state.summary = action.payload.cartSummary;
         delete state.cartLoadingByVariant[variantId];
       })
       .addCase(addToCart.rejected, (state, action) => {
@@ -40,7 +42,8 @@ const cartReducer = createSlice({
       })
       .addCase(getCartItems.fulfilled, (state, { payload }) => {
         state.cartLoading = false;
-        state.cartDetails = payload;
+        state.cartItems = payload.cartItems;
+        state.summary = payload.summary;
       })
       .addCase(getCartItems.rejected, (state, { payload }) => {
         state.cartLoading = false;
@@ -59,8 +62,9 @@ const cartReducer = createSlice({
       .addCase(decreaseCartItemCount.pending, (state) => {
         state.cartCountLoading = true;
       })
-      .addCase(decreaseCartItemCount.fulfilled, (state) => {
+      .addCase(decreaseCartItemCount.fulfilled, (state, { payload }) => {
         state.cartCountLoading = false;
+        state.summary = payload?.summary;
       })
       .addCase(decreaseCartItemCount.rejected, (state, { payload }) => {
         state.cartCountLoading = false;

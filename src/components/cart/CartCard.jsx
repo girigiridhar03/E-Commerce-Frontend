@@ -24,7 +24,7 @@ const CartCard = ({ productDetails, selectedVariant, qty }) => {
         productId: productDetails?._id,
         variantId: selectedVariant?._id,
         quantity: currentValue,
-      })
+      }),
     );
   };
 
@@ -33,7 +33,7 @@ const CartCard = ({ productDetails, selectedVariant, qty }) => {
       decreaseCartItemCount({
         pId: productDetails?._id,
         vId: selectedVariant?._id,
-      })
+      }),
     );
   };
 
@@ -42,7 +42,7 @@ const CartCard = ({ productDetails, selectedVariant, qty }) => {
       deleteProductFromCart({
         pId: productDetails?._id,
         vId: selectedVariant?._id,
-      })
+      }),
     );
 
     await dispatch(getCartItems());

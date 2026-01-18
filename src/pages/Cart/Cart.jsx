@@ -1,17 +1,37 @@
 import CartCard from "@/components/cart/CartCard";
+import CartSummary from "@/components/cart/CartSummary";
+import { Button } from "@/components/ui/button";
 import { getCartItems } from "@/store/cart/cart.service";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartLoading, cartDetails } = useSelector((state) => state.cart);
-  const { summary, cartItems } = cartDetails || {};
-
+  const {
+    cartLoading,
+    summary,
+    cartItems,
+    cartCountNum = 0,
+  } = useSelector((state) => state.cart);
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartItems());
   }, [dispatch]);
+
+  if (cartCountNum === 0 || cartItems?.length === 0) {
+    return (
+      <div className="w-full h-[90vh] flex items-center justify-center">
+        <div className="flex gap-2 flex-col">
+          <p className="text-lg font-semibold">Cart is Empty.</p>
+          <Link to="/">
+            <Button className="mx-auto block">Shop</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full mx-auto px-4 py-2">
@@ -32,7 +52,7 @@ const Cart = () => {
 
         {/*  SUMMARY */}
         <div className="lg:col-span-1">
-          {/* <CartSummary cartItems={cartItems} /> */}
+          <CartSummary summary={summary} />
         </div>
       </div>
     </div>
