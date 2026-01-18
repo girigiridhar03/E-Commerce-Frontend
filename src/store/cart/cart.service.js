@@ -17,7 +17,7 @@ export const addToCart = createAsyncThunk(
       if (response?.data?.success && productName) {
         toast.success(`Added to Cart: ${productName}`);
       }
-      return response?.data?.data;
+      return response?.data;
     } catch (error) {
       return rejectWithValue(error?.message);
     }

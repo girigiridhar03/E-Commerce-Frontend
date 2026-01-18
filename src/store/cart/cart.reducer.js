@@ -30,7 +30,7 @@ const cartReducer = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         const { variantId } = action.meta.arg;
-        state.summary = action.payload.cartSummary;
+        state.summary = action.payload?.data?.cartSummary;
         delete state.cartLoadingByVariant[variantId];
       })
       .addCase(addToCart.rejected, (state, action) => {
