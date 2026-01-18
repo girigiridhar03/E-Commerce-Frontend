@@ -29,7 +29,7 @@ const Products = () => {
   ];
   const [sortBy, setSortBy] = useState("featured");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(12);
   const [search, setSearch] = useState(serachValue ?? "");
   const { allProducts, loading } = useSelector((state) => state.product);
   const dispatch = useDispatch();

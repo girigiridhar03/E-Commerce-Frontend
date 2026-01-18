@@ -62,7 +62,7 @@ const ProductCards = ({
 
       {/* Content */}
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg">{title}</CardTitle>
+        <CardTitle className="text-lg capitalize">{title}</CardTitle>
 
         <div className="flex items-center gap-2">
           <div className="text-lg font-bold">₹{price?.toLocaleString()}</div>
