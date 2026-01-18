@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,10 +11,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   getCategoryNames,
   getSelectedFields,
 } from "@/store/category/category.service";
+import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -41,9 +44,12 @@ const CreateProduct = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <header className="text-xl font-semibold">Create A Product</header>
-        <p className="text-sm">Add a new product to store</p>
+      <div className="flex justify-between">
+        <div>
+          <header className="text-xl font-semibold">Create A Product</header>
+          <p className="text-sm">Add a new product to store</p>
+        </div>
+        <Button>Create</Button>
       </div>
       {/* Product Details */}
       <div className="grid grid-cols-2 gap-4">
@@ -97,8 +103,17 @@ const CreateProduct = () => {
                 </Select>
               </div>
               <div className="flex flex-col gap-1">
-                <label htmlFor="" className="text-sm font-medium">
-                  Product Tags
+                <label htmlFor="" className="text-sm font-medium flex gap-1.5 items-center">
+                  <span> Product Tags</span>
+                  <Tooltip>
+                    <TooltipTrigger asChild >
+                       <span>
+                    <Info size={11} />
+                  </span>
+                    </TooltipTrigger>
+                    <TooltipContent>Add common after each word</TooltipContent>
+                  </Tooltip>
+                 
                 </label>
                 <Input name="productName" placeholder="Enter Product Tags" />
               </div>
@@ -150,8 +165,11 @@ const CreateProduct = () => {
               <div className="grid grid-cols-2 gap-4">
                 {selectedFields?.map((item) => (
                   <div key={item?._id} className="flex flex-col gap-1">
-                    <label htmlFor={item?.label} className="text-sm font-medium">
-                       {item?.label}
+                    <label
+                      htmlFor={item?.label}
+                      className="text-sm font-medium"
+                    >
+                      {item?.label}
                     </label>
                     <Input
                       name={item?.label}
@@ -161,37 +179,6 @@ const CreateProduct = () => {
                     />
                   </div>
                 ))}
-
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="text-sm font-medium">
-                    Operating System
-                  </label>
-                  <Input name="productName" placeholder="Enter Product Tags" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="text-sm font-medium">
-                    Ram
-                  </label>
-                  <Input name="productName" placeholder="Enter Product Tags" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="text-sm font-medium">
-                    Rom
-                  </label>
-                  <Input name="productName" placeholder="Enter Product Tags" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="text-sm font-medium">
-                    Cpu Speed
-                  </label>
-                  <Input name="productName" placeholder="Enter Product Tags" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="text-sm font-medium">
-                    Storage Capacity
-                  </label>
-                  <Input name="productName" placeholder="Enter Product Tags" />
-                </div>
               </div>
             </CardContent>
           </Card>

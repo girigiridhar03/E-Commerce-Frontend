@@ -43,18 +43,23 @@ const AuthForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const navPaths = {
+      user: "/",
+      vendor: "/vendor/dashboard",
+    };
+
     if (pathname === "/signin") {
       const result = await dispatch(
         authSignin({
           email: form.email,
           password: form.password,
-        })
+        }),
       ).unwrap();
 
       if (result?.success) {
         toast.success("Welcome back!");
-        sessionStorage.setItem("token", result?.data);
-        navigate("/");
+        sessionStorage.setItem("token", result?.data?.token);
+        navigate(navPaths[result?.data?.role]);
       }
     }
   };

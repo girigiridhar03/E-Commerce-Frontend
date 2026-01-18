@@ -1,8 +1,6 @@
 import {
-  AudioWaveform,
   Boxes,
   Command,
-  GalleryVerticalEnd,
   LayoutDashboard,
   Logs,
   PackagePlus,
@@ -21,6 +19,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { Link } from "react-router-dom";
 const data = {
   user: {
     name: "shadcn",
@@ -64,12 +63,14 @@ export function AppSidebar({ ...props }) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg">
-              <div className={`text-lg bg-primary text-white p-1 rounded-lg`}>SN</div>
-              <div
-                className={` font-bold text-primary`}
-              >
-                ShopNest
-              </div>
+              <Link to={"/"} className="flex gap-1.5 items-center">
+                <span
+                  className={`text-lg bg-primary text-white p-1 rounded-lg`}
+                >
+                  SN
+                </span>
+                <span className={` font-bold text-primary`}>ShopNest</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

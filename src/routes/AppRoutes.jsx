@@ -35,7 +35,13 @@ const AppRoutes = () => {
       <Route path="/signin" element={<Auth />} />
       <Route path="/signup" element={<Auth />} />
 
-      <Route element={<VendorMain />}>
+      <Route
+        element={
+          <RoleRoute allowedRoles={["vendor"]}>
+            <VendorMain />
+          </RoleRoute>
+        }
+      >
         <Route path="/vendor/dashboard" element={<VendorDashboard />} />
         <Route path="/vendor/orders" element={<VendorOrders />} />
         <Route
