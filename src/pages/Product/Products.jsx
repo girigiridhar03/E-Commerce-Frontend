@@ -30,13 +30,9 @@ const Products = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState(serachValue ?? "");
   const { allProducts, loading } = useSelector((state) => state.product);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setSearch(serachValue);
-  }, [serachValue]);
 
   useEffect(() => {
     dispatch(
@@ -46,7 +42,7 @@ const Products = () => {
         key: "allProducts",
         sort: sortBy,
         search,
-      })
+      }),
     );
   }, [sortBy, page, limit, search]);
 
