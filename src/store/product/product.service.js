@@ -20,7 +20,7 @@ export const getProducts = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
 
 export const singleProduct = createAsyncThunk(
@@ -34,7 +34,7 @@ export const singleProduct = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
 );
 
 export const relatedProducts = createAsyncThunk(
@@ -47,5 +47,22 @@ export const relatedProducts = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error?.message);
     }
-  }
+  },
+);
+
+export const createProduct = createAsyncThunk(
+  "createProduct",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/product/create-product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response?.data;
+    } catch (error) {
+      return rejectWithValue(error?.message);
+    }
+  },
 );

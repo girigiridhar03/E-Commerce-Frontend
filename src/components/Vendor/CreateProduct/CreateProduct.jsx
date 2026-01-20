@@ -20,6 +20,7 @@ import {
   getCategoryNames,
   getSelectedFields,
 } from "@/store/category/category.service";
+import { createProduct } from "@/store/product/product.service";
 import { Info } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,6 +35,7 @@ const CreateProduct = () => {
   const { categoryNames, selectedFields } = useSelector(
     (state) => state.category,
   );
+  const { createLoading } = useSelector((state) => state.product);
   const [categoryId, setSelectedCategoryId] = useState("");
 
   useEffect(() => {
@@ -96,21 +98,29 @@ const CreateProduct = () => {
 
     const payload = new FormData();
 
-    payload.append("productName", formData?.productName);
-    payload.append("description", formData?.description);
-    payload.append("category", formData?.category);
-    payload.append("tags", formData?.tags?.split(","));
-    payload.append("variants", {
-      color: formData?.color,
-      originalPrice: formData?.originalPrice,
-      discountPercent: formData?.discount,
-      stock: formData?.stock,
-    });
-    payload.append("images", images);
-    payload.append("brand", formData?.brand);
-    payload.append("attributes", att);
+    payload.append("productName", formData.productName);
+    payload.append("description", formData.description);
+    payload.append("category", categoryId);
+    payload.append("tags", formData.tags);
+    payload.append(
+      "variants",
+      JSON.stringify({
+        color: formData.color,
+        originalPrice: formData.originalPrice,
+        discountPercent: formData.discount,
+        stock: formData.stock,
+      }),
+    );
+    payload.append("brand", formData.brand);
+    payload.append("attributes", JSON.stringify(att));
 
-    console.log("payload", payload);
+    images.forEach((file) => {
+      payload.append("images", file);
+    });
+
+    dispatch(createProduct(payload));
+    setFormData({});
+    setAtt({});
   };
 
   return (
@@ -120,7 +130,9 @@ const CreateProduct = () => {
           <header className="text-xl font-semibold">Create A Product</header>
           <p className="text-sm">Add a new product to store</p>
         </div>
-        <Button onClick={handleFormData}>Create</Button>
+        <Button disabled={createLoading} onClick={handleFormData}>
+          Create
+        </Button>
       </div>
       {/* Product Details */}
       <div className="grid grid-cols-2 gap-4">
@@ -171,7 +183,6 @@ const CreateProduct = () => {
                   value={categoryId}
                   onValueChange={(value) => {
                     setSelectedCategoryId(value);
-                    setFormData((prev) => ({ ...prev, category: value }));
                   }}
                 >
                   <SelectTrigger id="category" className="w-full">

@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProducts, relatedProducts, singleProduct } from "./product.service";
+import {
+  createProduct,
+  getProducts,
+  relatedProducts,
+  singleProduct,
+} from "./product.service";
 
 const initialState = {
   loading: false,
@@ -12,6 +17,7 @@ const initialState = {
   sLoading: false,
   relatedProductsArr: [],
   rLoading: false,
+  createLoading: false,
 };
 
 const productReducer = createSlice({
@@ -51,6 +57,16 @@ const productReducer = createSlice({
       })
       .addCase(relatedProducts.rejected, (state, { payload }) => {
         state.rLoading = false;
+        state.error = payload;
+      })
+      .addCase(createProduct.pending, (state) => {
+        state.createLoading = true;
+      })
+      .addCase(createProduct.fulfilled, (state) => {
+        state.createLoading = false;
+      })
+      .addCase(createProduct.rejected, (state, { payload }) => {
+        state.createLoading = false;
         state.error = payload;
       }),
 });
