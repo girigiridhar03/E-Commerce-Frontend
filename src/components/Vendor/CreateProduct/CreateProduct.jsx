@@ -25,6 +25,7 @@ import { Info } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import CategoryModal from "./CategoryModal";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -130,9 +131,13 @@ const CreateProduct = () => {
           <header className="text-xl font-semibold">Create A Product</header>
           <p className="text-sm">Add a new product to store</p>
         </div>
+        <div className="flex items-center gap-1.5" >
         <Button disabled={createLoading} onClick={handleFormData}>
           Create
         </Button>
+        <CategoryModal />
+       
+        </div>
       </div>
       {/* Product Details */}
       <div className="grid grid-cols-2 gap-4">
