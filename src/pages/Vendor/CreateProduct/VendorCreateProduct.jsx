@@ -1,4 +1,4 @@
-import CreateProduct from "@/components/Vendor/CreateProduct/CreateProduct";
+import CreateProduct from "@/components/ControlPanel/CreateProduct/CreateProduct";
 import React from "react";
 
 const VendorCreateProduct = () => {

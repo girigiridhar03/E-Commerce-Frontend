@@ -1,4 +1,4 @@
-import VendorContainer from "@/components/Vendor/VendorContainer/SideNav";
+import VendorContainer from "@/components/ControlPanel/VendorContainer/SideNav";
 
 const VendorMain = () => {
   return <VendorContainer />;

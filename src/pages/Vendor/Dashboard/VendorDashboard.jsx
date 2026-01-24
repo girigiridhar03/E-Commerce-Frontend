@@ -1,5 +1,5 @@
-import InfoCards from "@/components/Vendor/Dashboard/InfoCards";
-import OrdersTable from "@/components/Vendor/Dashboard/OrdersTable";
+import InfoCards from "@/components/ControlPanel/Dashboard/InfoCards";
+import OrdersTable from "@/components/ControlPanel/Dashboard/OrdersTable";
 
 const VendorDashboard = () => {
   return (
