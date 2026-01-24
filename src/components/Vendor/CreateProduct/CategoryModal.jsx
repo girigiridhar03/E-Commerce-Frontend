@@ -89,7 +89,7 @@ const CategoryModal = () => {
               const labelArr = Object.keys(item);
 
               return (
-                <div className="flex items-center gap-1.5">
+                <div key={`Field-${i}`} className="flex items-center gap-1.5">
                   <div className="grid gap-2 w-full">
                     <Label
                       htmlFor={labelArr[0]}
