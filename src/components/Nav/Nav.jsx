@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useSelector } from "react-redux";
+import logo from "../../../public/shopnestlogo.png";
 
 export default function Nav() {
   const { pathname } = useLocation();
@@ -27,7 +28,13 @@ export default function Nav() {
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="text-xl font-semibold">
-            ShopNest
+            <img
+              src={logo}
+              width={"70px"}
+              height={"70px"}
+              alt="shopNest-logo"
+              className="object-cover w-17.5 h-17.5"
+            />
           </Link>
 
           <NavigationMenu>
@@ -60,7 +67,9 @@ export default function Nav() {
             <Link to="/cart" className="rounded-md p-2 hover:bg-muted">
               <div className="relative">
                 <ShoppingCart className="h-5 w-5 " />
-                <div className=" absolute w-4 h-4 rounded-full -top-2 -right-2 bg-red-600 text-xs flex items-center justify-center text-white">{cartCountNum ?? 0}</div>
+                <div className=" absolute w-4 h-4 rounded-full -top-2 -right-2 bg-red-600 text-xs flex items-center justify-center text-white">
+                  {cartCountNum ?? 0}
+                </div>
               </div>
             </Link>
 

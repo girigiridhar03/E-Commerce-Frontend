@@ -1,11 +1,4 @@
-import {
-  Boxes,
-  Command,
-  LayoutDashboard,
-  Logs,
-  PackagePlus,
-  Truck,
-} from "lucide-react";
+import { Boxes, LayoutDashboard, Logs, PackagePlus, Truck } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -20,6 +13,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
+import logo from "../../public/shopnestlogo.png";
 const data = {
   user: {
     name: "shadcn",
@@ -62,14 +56,14 @@ export function AppSidebar({ ...props }) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              <Link to={"/"} className="flex gap-1.5 items-center">
-                <span
-                  className={`text-lg bg-primary text-white p-1 rounded-lg`}
-                >
-                  SN
-                </span>
-                <span className={` font-bold text-primary`}>ShopNest</span>
+            <SidebarMenuButton size="lg" asChild>
+              <Link to="/" className="flex items-center gap-2">
+                <img
+                  src={logo}
+                  alt="shopNest-logo"
+                  className="w-12 h-12 object-contain"
+                />
+                <span className="font-semibold text-lg">ShopNest</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

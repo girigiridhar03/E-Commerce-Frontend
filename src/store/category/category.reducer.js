@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  addNewCategoryAndFields,
   getCategoryNames,
   getSelectedFields,
 } from "./category.service";
@@ -37,6 +38,15 @@ const categoryReducer = createSlice({
       })
       .addCase(getSelectedFields.rejected, (state, { payload }) => {
         state.loading = false;
+        state.error = payload;
+      })
+      .addCase(addNewCategoryAndFields.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addNewCategoryAndFields.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(addNewCategoryAndFields.rejected, (state, { payload }) => {
         state.error = payload;
       }),
 });
