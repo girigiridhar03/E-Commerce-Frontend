@@ -13,7 +13,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
-import logo from "../../public/shopnestlogo.png";
+import logo from "../assets/shopnestlogo.png";
 const data = {
   user: {
     name: "shadcn",

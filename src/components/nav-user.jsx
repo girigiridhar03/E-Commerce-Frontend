@@ -1,8 +1,4 @@
-import {
-  BadgeCheck,
-  ChevronsUpDown,
-  LogOut,
-} from "lucide-react";
+import { BadgeCheck, ChevronsUpDown, LogOut } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -20,9 +16,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
+  const navigate = useNavigate();
 
   return (
     <SidebarMenu>
@@ -68,7 +67,18 @@ export function NavUser({ user }) {
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem
+                className=" text-red-600"
+                onClick={() => {
+                  sessionStorage.clear();
+
+                  toast.success("Logged out successfully");
+
+                  setTimeout(() => {
+                    navigate("/signin");
+                  }, 300);
+                }}
+              >
                 <LogOut />
                 Log out
               </DropdownMenuItem>

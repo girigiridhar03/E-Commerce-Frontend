@@ -1,5 +1,6 @@
 import api from "@/api/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 export const getCategoryNames = createAsyncThunk(
   "categoryNames",
@@ -8,7 +9,11 @@ export const getCategoryNames = createAsyncThunk(
       const response = await api.get("/category");
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -20,7 +25,11 @@ export const getSelectedFields = createAsyncThunk(
       const response = await api.get(`/category/${id}`);
       return response?.data?.data?.fields;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -32,7 +41,14 @@ export const addNewCategoryAndFields = createAsyncThunk(
       const response = await api.post(`/category/new`, formData);
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      if (error?.status === 400) {
+        toast.error(error?.response?.data?.message);
+      }
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );

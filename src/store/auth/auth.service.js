@@ -8,7 +8,11 @@ export const authSignin = createAsyncThunk(
       const response = await api.post(`/login`, formData);
       return response?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   }
 );
@@ -19,7 +23,11 @@ export const authSignup = createAsyncThunk(
     try {
       const response = await api.post(`/signup`, formData);
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   }
 );

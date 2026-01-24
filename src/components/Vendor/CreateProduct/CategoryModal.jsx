@@ -26,6 +26,7 @@ import {
 import { Plus, Trash } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const CategoryModal = () => {
   const [inputs, setInputs] = useState([
@@ -36,6 +37,7 @@ const CategoryModal = () => {
     },
   ]);
   const { loading } = useSelector((state) => state.category);
+  const [open, setOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const dispatch = useDispatch();
 
@@ -54,17 +56,38 @@ const CategoryModal = () => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(addNewCategoryAndFields({ name: categoryName, fields: inputs }));
+    if (!categoryName) {
+      return toast.warning("Category name is required");
+    }
+
+    const fieldsNotPresent = inputs.some(
+      (item) => !item.label?.trim() || !item.type?.trim(),
+    );
+
+    if (fieldsNotPresent) {
+      return toast.warning("Please fill all field labels and types");
+    }
+
+    await dispatch(
+      addNewCategoryAndFields({ name: categoryName, fields: inputs }),
+    );
     dispatch(getCategoryNames());
+
+    setOpen(false);
+
+    setCategoryName("");
+    setInputs([{ label: "", type: "", required: false }]);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Category</Button>
+        <Button variant="outline" onClick={() => setOpen(true)}>
+          Add Category
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-175">
@@ -82,6 +105,7 @@ const CategoryModal = () => {
               id="name"
               value={categoryName}
               onChange={(e) => setCategoryName(e.target.value)}
+              placeholder="Enter category name"
             />
           </div>
           <div className="flex flex-col gap-2 mt-2">

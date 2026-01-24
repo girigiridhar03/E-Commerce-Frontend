@@ -19,7 +19,11 @@ export const addToCart = createAsyncThunk(
       }
       return response?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -32,7 +36,11 @@ export const getCartItems = createAsyncThunk(
 
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -44,7 +52,11 @@ export const cartCount = createAsyncThunk(
       const response = await api.get("/cart/cart-count");
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -57,7 +69,11 @@ export const decreaseCartItemCount = createAsyncThunk(
 
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -70,7 +86,11 @@ export const deleteProductFromCart = createAsyncThunk(
 
       return response?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );

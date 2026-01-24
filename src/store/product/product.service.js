@@ -18,7 +18,11 @@ export const getProducts = createAsyncThunk(
       const response = await api.get(url);
       return { key, data: response?.data?.data };
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -32,7 +36,11 @@ export const singleProduct = createAsyncThunk(
       const response = await api.get(`/product/single-product/${pId}/${vId}`);
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -45,7 +53,11 @@ export const relatedProducts = createAsyncThunk(
 
       return response?.data?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );
@@ -62,7 +74,11 @@ export const createProduct = createAsyncThunk(
 
       return response?.data;
     } catch (error) {
-      return rejectWithValue(error?.message);
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
     }
   },
 );

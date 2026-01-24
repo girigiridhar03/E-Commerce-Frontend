@@ -19,7 +19,7 @@ const CardsSections = ({ title, searchKey }) => {
   useEffect(() => {
     if (!searchKey) return;
     dispatch(
-      getProducts({ page: 1, limit: 4, search: searchKey, key: searchKey })
+      getProducts({ page: 1, limit: 4, search: searchKey, key: searchKey }),
     );
   }, [dispatch, searchKey]);
 
@@ -29,7 +29,7 @@ const CardsSections = ({ title, searchKey }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
+  return data?.products?.length > 0 ? (
     <div className="flex flex-col gap-2.5 mb-10">
       <header className="flex items-center justify-between px-2">
         <h3 className="text-xl font-bold">{title}</h3>
@@ -37,14 +37,7 @@ const CardsSections = ({ title, searchKey }) => {
           <Button size="sm">View All</Button>
         </Link>
       </header>
-      <div
-        className="  grid 
-  grid-cols-1 
-  sm:grid-cols-2 
-  lg:grid-cols-3 
-  xl:grid-cols-4 
-  gap-4"
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {loading ? (
           <LoadingCards num={4} />
         ) : (
@@ -67,7 +60,7 @@ const CardsSections = ({ title, searchKey }) => {
         )}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default CardsSections;

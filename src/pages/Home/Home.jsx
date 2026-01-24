@@ -28,7 +28,7 @@ const Home = () => {
     <>
       <HeroSection />
       <InfoBanners />
-      {categoryNames?.map((item) => (
+      {categoryNames?.length > 0 && categoryNames?.map((item) => (
         <CardsSections
           key={item?._id}
           title={pluralize(item?.name)}

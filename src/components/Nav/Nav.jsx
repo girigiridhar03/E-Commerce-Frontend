@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ShoppingCart, User, Package, LogOut, CircleUser } from "lucide-react";
 
 import {
@@ -17,11 +17,13 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useSelector } from "react-redux";
-import logo from "../../../public/shopnestlogo.png";
+import logo from "../../assets/shopnestlogo.png";
+import { toast } from "react-toastify";
 
 export default function Nav() {
   const { pathname } = useLocation();
   const { cartCountNum } = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white">
@@ -96,7 +98,17 @@ export default function Nav() {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem className="flex items-center gap-2 text-red-600">
+                <DropdownMenuItem
+                  onClick={() => {
+                    sessionStorage.clear();
+
+                    toast.success("Logged out successfully");
+
+                    setTimeout(() => {
+                      navigate("/signin");
+                    }, 300);
+                  }}
+                >
                   <LogOut className="h-4 w-4" />
                   Logout
                 </DropdownMenuItem>

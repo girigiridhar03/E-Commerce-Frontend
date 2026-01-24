@@ -1,3 +1,4 @@
+import CustomPagination from "@/components/product/CustomPagination";
 import { SingleSelectDropdown } from "@/components/product/DropDown";
 import LoadingCards from "@/components/product/LoadingCards";
 import ProductCards from "@/components/product/ProductCards";
@@ -29,7 +30,7 @@ const Products = () => {
   ];
   const [sortBy, setSortBy] = useState("featured");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(12);
+  const limit = 12;
   const [search, setSearch] = useState(serachValue ?? "");
   const { allProducts, loading } = useSelector((state) => state.product);
   const dispatch = useDispatch();
@@ -83,6 +84,16 @@ const Products = () => {
           ))
         )}
       </div>
+
+      {allProducts?.totalPages > 1 && (
+        <div className="my-10">
+          <CustomPagination
+            totalPages={allProducts?.totalPages}
+            currentPage={page}
+            onPageChange={setPage}
+          />
+        </div>
+      )}
     </div>
   );
 };
