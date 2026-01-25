@@ -23,6 +23,16 @@ export function NavUser({ user }) {
   const { isMobile } = useSidebar();
   const navigate = useNavigate();
 
+  function fallBackText() {
+    const splitName = user?.username?.split(" ");
+
+    if (splitName?.length > 1) {
+      return `${splitName?.[0].slice(0, 1)}${splitName?.[splitName?.length - 1].slice(0, 1)}`;
+    } else {
+      return `${splitName?.[0].slice(0, 1)}`;
+    }
+  }
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -33,12 +43,12 @@ export function NavUser({ user }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarImage src={user?.avatar} alt={user?.username} />
+                <AvatarFallback className="rounded-lg">{fallBackText()}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium">{user?.username}</span>
+                <span className="truncate text-xs">{user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -52,12 +62,15 @@ export function NavUser({ user }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage
+                    src={user?.profileImage?.url}
+                    alt={user?.username}
+                  />
+                  <AvatarFallback className="rounded-lg">{fallBackText()}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{user?.username}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -79,7 +92,7 @@ export function NavUser({ user }) {
                   }, 300);
                 }}
               >
-                <LogOut />
+                <LogOut color="red" />
                 Log out
               </DropdownMenuItem>
             </DropdownMenuGroup>

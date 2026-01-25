@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { authSignin } from "./auth.service";
+import { authSignin, userDetails } from "./auth.service";
 
 const initialState = {
   authLoading: false,
   error: null,
+  userDetailsObj: {},
 };
 
 const authReducer = createSlice({
@@ -21,6 +22,17 @@ const authReducer = createSlice({
       .addCase(authSignin.rejected, (state, { payload }) => {
         state.authLoading = false;
         state.error = payload;
+      })
+      .addCase(userDetails.pending, (state) => {
+        state.authLoading = true;
+      })
+      .addCase(userDetails.fulfilled, (state, { payload }) => {
+        state.authLoading = false;
+        state.userDetailsObj = payload;
+      })
+      .addCase(userDetails.rejected, (state, { payload }) => {
+        state.authLoading = false;
+        state.userDetailsObj = payload;
       }),
 });
 

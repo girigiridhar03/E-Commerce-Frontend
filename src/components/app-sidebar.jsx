@@ -14,12 +14,8 @@ import {
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
 import logo from "../assets/shopnestlogo.png";
+import { useSelector } from "react-redux";
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -51,6 +47,8 @@ const data = {
 };
 
 export function AppSidebar({ ...props }) {
+  const { userDetailsObj } = useSelector((state) => state.auth);
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -73,7 +71,7 @@ export function AppSidebar({ ...props }) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userDetailsObj} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
