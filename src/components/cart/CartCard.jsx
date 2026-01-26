@@ -95,6 +95,7 @@ const CartCard = ({ productDetails, selectedVariant, qty }) => {
             size="sm"
             onClick={handleRemove}
             disabled={isLoading}
+            className="mr-2"
           >
             {isLoading ? (
               <>

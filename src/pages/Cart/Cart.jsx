@@ -13,14 +13,15 @@ const Cart = () => {
     cartItems,
     cartCountNum = 0,
   } = useSelector((state) => state.cart);
- 
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartItems());
   }, [dispatch]);
 
-  if (cartCountNum === 0 || cartItems?.length === 0) {
+
+  if (cartCountNum === 0 && (cartItems?.length === 0 || !cartItems)) {
     return (
       <div className="w-full h-[90vh] flex items-center justify-center">
         <div className="flex gap-2 flex-col">
