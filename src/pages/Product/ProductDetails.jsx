@@ -3,6 +3,7 @@ import ProductTabs from "@/components/product/ProductTabs";
 import RelatedProduct from "@/components/product/RelatedProduct";
 import {
   relatedProducts,
+  selectedProductReview,
   singleProduct,
 } from "@/store/product/product.service";
 import { useEffect } from "react";
@@ -19,11 +20,12 @@ const ProductDetails = () => {
     if (!productId || !variantId) return;
 
     dispatch(singleProduct({ pId: productId, vId: variantId }));
+    dispatch(selectedProductReview({ pId: productId, vId: variantId }));
     dispatch(relatedProducts(productId));
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-    });
+    }); 
   }, [productId, variantId, dispatch]);
 
   return (

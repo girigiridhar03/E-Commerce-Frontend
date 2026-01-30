@@ -3,6 +3,7 @@ import {
   createProduct,
   getProducts,
   relatedProducts,
+  selectedProductReview,
   singleProduct,
 } from "./product.service";
 
@@ -18,6 +19,8 @@ const initialState = {
   relatedProductsArr: [],
   rLoading: false,
   createLoading: false,
+  selectedProdReviewObj: {},
+  reviewLoading: false,
 };
 
 const productReducer = createSlice({
@@ -67,6 +70,17 @@ const productReducer = createSlice({
       })
       .addCase(createProduct.rejected, (state, { payload }) => {
         state.createLoading = false;
+        state.error = payload;
+      })
+      .addCase(selectedProductReview.pending, (state) => {
+        state.reviewLoading = true;
+      })
+      .addCase(selectedProductReview.fulfilled, (state, { payload }) => {
+        state.reviewLoading = false;
+        state.selectedProdReviewObj = payload;
+      })
+      .addCase(selectedProductReview.rejected, (state, { payload }) => {
+        state.reviewLoading = false;
         state.error = payload;
       }),
 });

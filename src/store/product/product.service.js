@@ -82,3 +82,19 @@ export const createProduct = createAsyncThunk(
     }
   },
 );
+
+export const selectedProductReview = createAsyncThunk(
+  "selectedProReview",
+  async ({ pId, vId }, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/review/product/${pId}/${vId}`);
+      return response?.data?.data;
+    } catch (error) {
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong",
+      );
+    }
+  },
+);
