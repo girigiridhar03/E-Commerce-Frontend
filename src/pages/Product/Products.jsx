@@ -57,7 +57,10 @@ const Products = () => {
             triggerText="Sort"
             options={SORT_OPTIONS}
             value={sortBy}
-            onChange={setSortBy}
+            onChange={(value) => {
+              setPage(1);
+              setSortBy(value);
+            }}
           />
           <Button size="icon-sm">
             <Filter />

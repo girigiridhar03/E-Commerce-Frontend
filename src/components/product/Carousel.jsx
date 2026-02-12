@@ -24,7 +24,7 @@ export function CarouselCom({ images, selectedImg, onSelect }) {
             key={index}
             className="
               pl-1
-              basis-1/5       
+              basis-[40%]    
               sm:basis-1/5    
               md:basis-1/2    
               lg:basis-1/3  
