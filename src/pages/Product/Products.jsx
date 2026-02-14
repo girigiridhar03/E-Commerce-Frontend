@@ -1,8 +1,10 @@
 import CustomPagination from "@/components/product/CustomPagination";
 import { SingleSelectDropdown } from "@/components/product/DropDown";
+import FilterPopover from "@/components/product/FilterPopover";
 import LoadingCards from "@/components/product/LoadingCards";
 import ProductCards from "@/components/product/ProductCards";
 import { Button } from "@/components/ui/button";
+import { getCategoryNames } from "@/store/category/category.service";
 import { getProducts } from "@/store/product/product.service";
 import { Filter } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -30,9 +32,11 @@ const Products = () => {
   ];
   const [sortBy, setSortBy] = useState("featured");
   const [page, setPage] = useState(1);
-  const limit = 12;
   const [search, setSearch] = useState(serachValue ?? "");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const limit = 12;
   const { allProducts, loading } = useSelector((state) => state.product);
+  const { categoryNames } = useSelector((state) => state.category);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,15 +47,20 @@ const Products = () => {
         key: "allProducts",
         sort: sortBy,
         search,
+        category: selectedCategory,
       }),
     );
-  }, [sortBy, page, limit, search]);
+  }, [sortBy, page, limit, search, selectedCategory]);
+
+  useEffect(() => {
+    dispatch(getCategoryNames());
+  }, [dispatch]);
 
   return (
     <div>
       <header className="flex items-center justify-between px-2">
         <h3 className="text-xl font-bold">All Products</h3>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <SingleSelectDropdown
             label="Sort By"
             triggerText="Sort"
@@ -62,9 +71,12 @@ const Products = () => {
               setSortBy(value);
             }}
           />
-          <Button size="icon-sm">
-            <Filter />
-          </Button>
+          <FilterPopover
+            categoryNames={categoryNames}
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+            setPage={setPage}
+          />
         </div>
       </header>
       <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-4 mt-5">

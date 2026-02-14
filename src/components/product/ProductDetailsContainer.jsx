@@ -26,7 +26,7 @@ const ProductDetailsContainer = () => {
           <img
             src={proImg}
             draggable={false}
-            className="w-full h-full object-contain"
+            className="w-full h-125 object-contain"
             alt={singleProductDetails?.productName ?? "product-image"}
           />
         </div>

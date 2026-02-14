@@ -38,7 +38,7 @@ export function CarouselCom({ images, selectedImg, onSelect }) {
                   : "border border-transparent"
               }`}
             >
-              <CardContent className="flex aspect-square items-center justify-center p-2">
+             <CardContent className="flex h-20 sm:h-20 md:h-30 lg:h-35 xl:h-40 items-center justify-center p-2">
                 <img
                   src={img?.url ?? null}
                   alt={`thumbnail-${index}`}

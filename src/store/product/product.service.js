@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const getProducts = createAsyncThunk(
   "getProducts",
   async (reqBody, { rejectWithValue }) => {
-    const { page, limit, search, key, sort } = reqBody;
+    const { page, limit, search, key, sort, category } = reqBody;
     let url = `/product/all-products?page=${page}&limit=${limit}`;
 
     if (search) {
@@ -14,6 +14,11 @@ export const getProducts = createAsyncThunk(
     if (sort && sort !== "featured") {
       url += `&sort=${sort}`;
     }
+
+    if (category) {
+      url += `&category=${category}`;
+    }
+
     try {
       const response = await api.get(url);
       return { key, data: response?.data?.data };
