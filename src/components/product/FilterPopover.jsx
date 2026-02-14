@@ -47,7 +47,7 @@ const FilterPopover = ({
                   }}
                 />
                 <Label htmlFor={item?._id} className="capitalize">
-                  {item.name}
+                  {item.name} ({item?.count})
                 </Label>
               </Field>
             ))}
